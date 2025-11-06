@@ -1,0 +1,11 @@
+{
+  "defaultAddress": {
+    "country": "Netherlands",
+    "name": "Alex",
+    "mobileNumber": "0626000000",
+    "zipCode": "1185BZ",
+    "address": "Zwingliweg 1",
+    "city": "Amstelveen",
+    "state": "North Holland"
+  }
+}

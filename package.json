@@ -1,0 +1,24 @@
+{
+  "name": "cypresstest",
+  "version": "1.0.0",
+  "description": "Cypress e2e testing framework",
+  "license": "ISC",
+  "author": "Praseeda",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress run",
+    "test:spec": "cypress run --spec",
+    "cypress:open": "cypress open",
+    "lint": "eslint cypress/",
+    "lint:fix": "eslint cypress/ --fix"
+  },
+  "dependencies": {
+    "cypress": "^15.5.0"
+  },
+  "devDependencies": {
+    "cypress-mochawesome-reporter": "^4.0.2",
+    "eslint": "^8.54.0",
+    "eslint-plugin-cypress": "^2.15.1"
+  }
+}
