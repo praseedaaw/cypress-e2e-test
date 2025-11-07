@@ -51,7 +51,7 @@ npm install
 
 ## 🧩 Environment Configuration
 ### Prerequisites
-- Node.js and npm installed
+- Node.js[https://nodejs.org/en] and npm installed
 - OWASP Juice Shop application running locally
   - Repository: https://github.com/juice-shop/juice-shop
   - The application must be running on http://localhost:3000
@@ -187,42 +187,6 @@ xdg-open cypress/reports/html/index.html
 - Failed Test Screenshots
 - Test Run Videos
 - Custom Step Logging (using cy.step())
-
-## 📦 GitHub Repository Setup
-1. Create a new repository on GitHub:
-   - Go to https://github.com/new
-   - Repository name: cypress-e2e-test
-   - Description: End-to-end testing framework for OWASP Juice Shop using Cypress with Page Object Model pattern
-   - Choose "Public" or "Private" based on your needs
-   - Click "Create repository"
-
-2. Initialize the local repository and push to GitHub:
-   ```bash
-   # Initialize git repository
-   git init
-
-   # Add all files to git
-   git add .
-
-   # Create initial commit
-   git commit -m "Initial commit: Cypress E2E Test Framework"
-
-   # Add GitHub repository as remote
-   git remote add origin <your-github-repo-url>
-
-   # Push to GitHub
-   git push -u origin main
-   ```
-
-3. Important files for Git:
-   - The project already includes `cypress/reports/` in `.gitignore`
-   - Test reports, videos, and screenshots are automatically ignored
-   - Node modules are ignored by default
-
-4. Verify your repository:
-   - Visit your GitHub repository URL
-   - Ensure all files are pushed correctly
-   - Check that sensitive files are not included
 
 ## 🪪 Contributing Guidelines
 1. Follow the established Page Object Model pattern
