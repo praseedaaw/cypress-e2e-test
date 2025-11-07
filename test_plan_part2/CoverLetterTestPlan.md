@@ -19,32 +19,21 @@
 
 ---
 
-## 🧱 **2. Test Strategy (Continuous testing with Testing Trophy model distribution)**
+## **🧱 2. Test Strategy & Collaboration**
 
 | Test Level                         | Purpose                                                                                                                      | Tools / Techniques                                                                                         | Responsible       | Automation % Target |
 | ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ----------------- | ------------------- |
-| **Static Testing (Shift-Left)**    | Validate requirements, acceptance criteria, and UI/UX design before development begins. Identify gaps and ambiguities early. | Reviews, Checklists, Heuristic analysis (Fagan review), 3 Amigos workshops, Pairing sessions with PO & Dev | **QA + PO + Dev** | 20% by the use of ChatGPT         |
-| **Unit Tests**                     | Validate core business logic and field-level validation (file type, size, limits).                                           | Jest / Mocha                                                                                               | Developer         | 40%                 |
-| **Contract Tests**                 | Verify consistency of API endpoints and schema validation.                                                                   | Pact / Postman                                                                                             | QA + Dev          | 80%                 |
-| **Component Integration Tests**    | Validate data flow between front-end and backend services, ensuring smooth transitions.                                      | Cypress (component mode), React Testing Library                                                            | Developer                | 80%                 |
-| **E2E Tests (QA Focus)**           | Validate critical user journeys (upload, switch, cancel, apply). Focus on functional correctness and UX flow.                | **Cypress / Playwright**                                                                                   | **QA Owner**      | 10%(100% P0 flows)                |
-| **Exploratory Testing (QA Focus)** | Validate real-world scenarios, UI responsiveness, error resilience, and system behavior under edge cases.                    | **Chartered Exploratory Sessions, Mind Maps, Heuristic Tours (Data, Stress, Interrupt, Usability)**        | **QA Owner**      | N/A                 |
-| **Shift-Right / Observability**    | Monitor user behavior and defect trends post-release. Validate error logs and metrics.                                       | Sentry / Datadog / Hotjar                                                                                  | QA + DevOps       | 5%                  |
+| **Static Testing (Shift-Left)**    | Validate requirements, acceptance criteria, and UI/UX design before development begins. Identify gaps and ambiguities early. | Reviews, Checklists, Heuristic analysis, 3 Amigos workshops, Pairing sessions with PO & Dev, Grooming | **QA + PO + Dev** | 20% by the use of ChatGPT         |
+| **Unit Tests**                     | Validate core business logic and field-level validation (file type, size, limits).                                           | Jest / Mocha                                                                                               | Dev         | 40%                 |
+| **Contract Tests**                 | Verify consistency of API endpoints and schema validation.                                                                   | Pact / BE-Client API Documentation                                                                                             | QA + Dev          | 60%                 |
+| **Component Integration Tests**    | Validate data flow between front-end and backend services, ensuring smooth transitions.                                      | Cypress (component mode), React Testing Library                                                            | Dev                | 80%                 |
+| **E2E Tests (QA Focus)**           | Validate critical user journeys (upload, switch, cancel, apply). Focus on functional correctness and UX flow.                | **Cypress / Playwright**, FE Dev - QA new locator contract document                                                                                   | **QA**      | 10% of whole feature (100% P0 flows)                |
+| **Exploratory Testing (QA Focus)** | Validate real-world scenarios, UI responsiveness, error resilience, and system behavior under edge cases.                    | **Chartered Exploratory Sessions, Mind Maps, Heuristic Tours (Data, Stress, Interrupt, Usability)**        | **QA**      | N/A                 |
+| **Shift-Right / Observability**    | Monitor user behavior and defect trends post-release. Validate error logs and metrics.                                       | Sentry / Datadog / Hotjar                                                                                  | Team       | 50%                  |
 
 ---
 
-## 🔁 **3. Shift-Left & Shift-Right Integration**
-
-| Phase                      | Shift-Left Practice                                                                                                                 | Shift-Right Practice                                             |
-| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| **Discovery & Refinement** | Static review of requirements & acceptance criteria (checklists, heuristics). QA leads 3 Amigos sessions for testability alignment. | N/A                                                              |
-| **Development**            | API contracts validated early using Pact. Component mocks shared for parallel E2E automation.                                       | Monitor telemetry of upload performance and API retries.         |
-| **CI/CD Pipeline**         | Unit, Contract, Component & Smoke tests executed per PR; E2E nightly/on-demand; regression on staging.                                        | Alert-based monitoring for upload failure anomalies.             |
-| **Post-Deployment**        | Exploratory regression + feedback analysis.                                                                                         | Collect production insights for future regression suite updates. |
-
----
-
-## 🧩 **4. QA Ownership Areas**
+## **🧩 3. QA Ownership Areas**
 
 | QA Responsibility             | Focus                                                                  | Expected Outcome                                        |
 | ----------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------- |
@@ -57,7 +46,7 @@
 
 ---
 
-## 📊 **5. Quality Metrics & Reporting**
+## 📊 **4. Quality Metrics & Reporting**
 
 | Metric                       | Target                            | Description                                                 |
 | ---------------------------- | --------------------------------- | ----------------------------------------------------------- |
@@ -69,21 +58,7 @@
 
 ---
 
-## ⚙️ **6. Quality Tooling & Environments**
-
-| Category          | Tool                          | Purpose                        |
-| ----------------- | ----------------------------- | ------------------------------ |
-| E2E Automation    | Cypress / Playwright          | Critical E2E business flow automation  |
-| Component Integration Tetsing| Cypress / Playwright | High level UI logics, edge cases and snapshot testing |
-| Contract Testing       |  Pact                | Contract & schema testing      |
-| Unit testing | Jest | Testing lowest components |
-| Static Review     | Confluence + Review Checklist | Requirements validation        |
-| CI/CD Integration | GitHub Actions / Jenkins      | Continuous testing pipeline    |
-| Monitoring        | Sentry / Datadog / AB testing             | Observability & anomaly alerts |
-
----
-
-## 💡 **7. Risk-Based Testing Focus**
+## 💡 **5. Risk-Based Testing Focus**
 
 | Risk Area                               | Probability | Impact | Mitigation Strategy                |
 | --------------------------------------- | ----------- | ------ | ---------------------------------- |
@@ -95,7 +70,7 @@
 
 ---
 
-## ▶️ Automation Pending **8. Exit Criteria**
+## **6. Exit Criteria**
 
 * All P0 & P1 scenarios automated at E2E or component level.
 * 100% of requirements reviewed via static testing checklists.
@@ -105,7 +80,7 @@
 
 ---
 
-## 🧩 **Requirement Traceability & Test Coverage Matrix**
+## 🧩 **7. Requirement Traceability & Test Coverage Matrix**
 
 | Feature ID | User Story ID | Acceptance Criteria ID | Test Case ID | Test Case Description | Criticality / Priority | Automated Test Coverage | Test Automation Level | Test Run Result |
 | ---------- | ------------- | -------------------- | ------------ | -------------------- | -------------------- | ---------------------- | ------------------- | --------------- |
@@ -138,15 +113,15 @@
 | NFR | US-NFR | AC-008: Non-Functional Requirements | TC-027 | Performance testing | P0 | ▶️ Automation Pending | E2E | ▶️ To Do |
 | | | AC-009: Security testing | P0 | Penetration testing | P1 | ▶️ Automation Pending | E2E | ▶️ To Do |
 
-## Release Plan & Test Builds
+## **8. Release Plan & Test Builds**
 To be added by the team
 
 
-## Bug Triage plan and list
+## **9. Bug Triage plan and list**
 Daily triage during feature testing and UAT phase
 
 Ad-hoc triage for critical (P0/P1) issues reported post-deployment
 
 
-## Slack communication channel
+## **10. Slack communication channel**
     #cover-letter-release
