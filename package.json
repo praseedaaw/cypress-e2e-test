@@ -11,7 +11,8 @@
     "test:spec": "cypress run --spec",
     "cypress:open": "cypress open",
     "lint": "eslint cypress/",
-    "lint:fix": "eslint cypress/ --fix"
+    "lint:fix": "eslint cypress/ --fix",
+    "prepare": "husky install"
   },
   "dependencies": {
     "cypress": "^15.5.0"
@@ -19,6 +20,7 @@
   "devDependencies": {
     "cypress-mochawesome-reporter": "^4.0.2",
     "eslint": "^8.54.0",
-    "eslint-plugin-cypress": "^2.15.1"
+    "eslint-plugin-cypress": "^2.15.1",
+    "husky": "^8.0.0"
   }
 }

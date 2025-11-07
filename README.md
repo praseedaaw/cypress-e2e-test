@@ -195,6 +195,18 @@ xdg-open cypress/reports/html/index.html
 4. Maintain test data in fixtures
 5. Run ESLint before committing changes
 
+## 🔄 Git Workflow
+1. The repository enforces code quality through pre-push hooks
+2. Before pushing to remote, ESLint will automatically run
+3. If any ESLint errors are found, the push will be blocked
+4. Fix all linting errors using `npm run lint:fix` before retrying
+5. Only error-free code can be pushed to remote branches
+
+To temporarily bypass the lint check in exceptional cases (not recommended):
+```bash
+git push --no-verify
+```
+
 ## 📝 License & Ownership
 - Author: Praseeda
 - License: ISC

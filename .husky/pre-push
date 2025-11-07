@@ -1,0 +1,13 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Run ESLint check
+echo "Running ESLint check..."
+npm run lint
+if [ $? -ne 0 ]; then
+  echo "❌ ESLint found errors. Please fix them before pushing."
+  exit 1
+fi
+
+echo "✅ ESLint check passed!"
+exit 0
