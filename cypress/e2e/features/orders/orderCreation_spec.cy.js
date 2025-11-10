@@ -2,134 +2,82 @@
  * @fileoverview Order Creation End-to-End Test Specification
  * This spec contains test scenarios for the complete order creation flow in OWASP Juice Shop,
  * including login, cart management, checkout process, and order verification.
- *
  * @author Praseeda Achuthawarrier
  * @lastModified 2025-11-06
  */
 
 /// <reference types="cypress" />
-// Common components
-import { TopNavigationPage, AccountTabPage, CommonDialogsPage } from '../../../page_objects/common';
-import BasePage from '../../../page_objects/BasePage';
-
-// Pages
-import {
-  LoginPage,
-  HomePage,
-  CheckoutPage,
-  SelectAddressPage,
-  AddNewAddressPage,
-  ChooseDeliverySpeedPage,
-  PaymentOptionsPage,
-  OrderSummaryPage,
-  OrderHistoryPage
-} from '../../../page_objects/pages';
+import { BaseTest } from '../baseTest_spec.cy';
 
 describe('Juice Shop - Ordering products', () => {
-  let userData;
-  let addressData;
-  const basePage = new BasePage();
-  const commonDialogs = new CommonDialogsPage();
+  const baseTest = new BaseTest();
 
   before(() => {
-    // Load the user data fixture
-    cy.fixture('users.json').then((users) => {
-      userData = users;
-    });
-    // Load the address data fixture
-    cy.fixture('address.json').then((addresses) => {
-      addressData = addresses;
-    });
+    baseTest.loadTestData();
   });
 
   beforeEach(() => {
-    cy.step('Setup: Navigate to application', () => {
-      basePage.visit();
-    });
-    
-    cy.step('Setup: Handle initial dialogs', () => {
-      commonDialogs.handleInitialDialogs();
-    });
+    baseTest.setup();
   });
 
   it('order_multiple_items_spec', function() {
-    const loginPage = new LoginPage();
-    const homePage = new HomePage();
-    const topNav = new TopNavigationPage();
-    const checkoutPage = new CheckoutPage();
-    const selectAddressPage = new SelectAddressPage();
-    const addNewAddressPage = new AddNewAddressPage();
-    const chooseDeliverySpeedPage = new ChooseDeliverySpeedPage();
-    const paymentOptionsPage = new PaymentOptionsPage();
-    const orderSummaryPage = new OrderSummaryPage();
-    const accountTabPage = new AccountTabPage();
-    const orderHistoryPage = new OrderHistoryPage();
-
     // Step 1: Authentication
-    cy.step('Login: Authenticate as admin user', () => {
-      loginPage.visit();
-      loginPage.verifyPageLoaded();
-      loginPage.login(userData.admin.email, userData.admin.password);
-    });
+    baseTest.loginAsAdmin();
 
     // Step 2: Cart Preparation
-    cy.step('Cart: Clear existing items', () => {
-      topNav.clickShoppingCart();
-      checkoutPage.verifyPageLoaded();
-      checkoutPage.clearBasketIfNotEmpty();
-    });
+    baseTest.clearShoppingCart();
 
     cy.step('Cart: Add new items to basket', () => {
-      homePage.visit();
-      homePage.addToBasket(0);
-      homePage.addToBasket(1);
-      homePage.addToBasket(2);
-      homePage.addToBasket(3);
+      baseTest.homePage.visit();
+      baseTest.homePage.addToBasket(0);
+      baseTest.homePage.addToBasket(1);
+      baseTest.homePage.addToBasket(2);
+      baseTest.homePage.addToBasket(3);
     });
 
     // Step 3: Cart Modification
     cy.step('Cart: Modify item quantities', () => {
-      topNav.clickShoppingCart();
-      checkoutPage.verifyPageLoaded();
-      checkoutPage.increaseQuantity(1); // Increase quantity of an item that has quantity 1
-      checkoutPage.decreaseQuantity(1); // Decrease quantity of an item that has quantity 2
-      checkoutPage.removeItem(1); // Remove first item using new method
-      cy.get('mat-row').should('have.length.lessThan', 4); // Verify item removal before proceeding
+      baseTest.topNav.clickShoppingCart();
+      baseTest.checkoutPage.verifyPageLoaded();
+      baseTest.checkoutPage.increaseQuantity(1);
+      baseTest.checkoutPage.decreaseQuantity(1);
+      baseTest.checkoutPage.removeItem(1);
+      baseTest.checkoutPage.verifyBasketItemCountLessThan(4);
     });
 
     // Step 4: Checkout Process
     cy.step('Checkout: Initiate checkout process', () => {
-      checkoutPage.verifyCheckoutEnabled();
-      checkoutPage.proceedToCheckout();
+      baseTest.checkoutPage.verifyCheckoutEnabled();
+      baseTest.checkoutPage.proceedToCheckout();
     });
 
     // Step 5: Address and Delivery
     cy.step('Checkout: Fill shipping details', () => {
-      selectAddressPage.verifyPageLoaded();
-      selectAddressPage.clickAddNewAddress();
-      addNewAddressPage.verifyPageLoaded();
-      addNewAddressPage.addNewAddress(addressData.defaultAddress);
-      selectAddressPage.selectLatestAddress();
-      selectAddressPage.clickContinue();
+      baseTest.selectAddressPage.verifyPageLoaded();
+      baseTest.selectAddressPage.clickAddNewAddress();
+      baseTest.addNewAddressPage.verifyPageLoaded();
+      baseTest.addNewAddressPage.addNewAddress(baseTest.addressData.defaultAddress);
+      baseTest.selectAddressPage.selectLatestAddress();
+      baseTest.selectAddressPage.clickContinue();
     });
 
     cy.step('Checkout: Complete order process', () => {
-      chooseDeliverySpeedPage.verifyPageLoaded();
-      chooseDeliverySpeedPage.selectFirstDeliverySpeed();
-      chooseDeliverySpeedPage.continueButton().click();
-      paymentOptionsPage.verifyPageLoaded();
-      paymentOptionsPage.selectFirstPaymentMethod();
-      paymentOptionsPage.clickContinue();
-      orderSummaryPage.verifyPageLoaded();
-      orderSummaryPage.clickPlaceOrder();
+      baseTest.chooseDeliverySpeedPage.verifyPageLoaded();
+      baseTest.chooseDeliverySpeedPage.selectFirstDeliverySpeed();
+      baseTest.chooseDeliverySpeedPage.continueButton().click();
+      baseTest.paymentOptionsPage.verifyPageLoaded();
+      baseTest.paymentOptionsPage.selectFirstPaymentMethod();
+      baseTest.paymentOptionsPage.clickContinue();
+      baseTest.orderSummaryPage.verifyPageLoaded();
+      baseTest.orderSummaryPage.clickPlaceOrder();
     });
 
     // Step 6: Order Verification
     cy.step('Verification: Check order in history', () => {
-      topNav.clickAccount();
-      accountTabPage.clickOrderHistory();
-      orderHistoryPage.verifyPageLoaded();
-      orderHistoryPage.verifyOrderVisible(1);
+      baseTest.topNav.clickAccount();
+      baseTest.accountTabPage.clickOrderHistory();
+      baseTest.orderHistoryPage.verifyPageLoaded();
+      baseTest.orderHistoryPage.verifyOrderVisible(1);
     });
   });
 });

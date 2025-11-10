@@ -10,16 +10,24 @@ class OrderCompletionPage extends BasePage {
     }
 
     // ============ Element Selectors ============
+    // Title element
     title() {
         return this.getElement('h1.confirmation').contains('Thank you for your purchase!');
     }
 
     // ============ Actions ============
+    /**
+     * Navigate to Order Completion page
+     */
     visit() {
         super.visit(this.path);
     }
 
     // ============ Assertions ============
+    
+    /**
+     * Verify Order Completion page is loaded
+     */
     verifyPageLoaded() {
         this.verifyUrl(this.path);
         this.title().should('exist').and('not.be.disabled');

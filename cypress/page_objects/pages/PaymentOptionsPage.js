@@ -22,6 +22,9 @@ class PaymentOptionsPage extends BasePage {
     }
   
     // ============ Actions ============
+    /**
+     * Navigate to Payment Options page
+     */
     visit() {
       super.visit(this.path);
     }
