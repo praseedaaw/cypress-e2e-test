@@ -20,6 +20,15 @@ import {
 
 export class BaseTest {
     constructor() {
+        // Initialize and verify page objects
+        this._initializePageObjects();
+    }
+
+    /**
+     * Initialize all page objects and verify they exist
+     * @private
+     */
+    _initializePageObjects() {
         // Initialize common page objects
         this.basePage = new BasePage();
         this.commonDialogs = new CommonDialogsPage();
@@ -34,19 +43,29 @@ export class BaseTest {
         this.orderSummaryPage = new OrderSummaryPage();
         this.accountTabPage = new AccountTabPage();
         this.orderHistoryPage = new OrderHistoryPage();
+
+        // Verify all page objects are properly initialized
+        Object.entries(this).forEach(([key, value]) => {
+            if (!value) {
+                throw new Error(`Page object ${key} failed to initialize`);
+            }
+        });
     }
 
     /**
      * Load test data from fixtures
      */
     loadTestData() {
-        // Load user data fixture
-        cy.fixture('users.json').then((users) => {
-            this.userData = users;
-        });
-        // Load address data fixture
-        cy.fixture('address.json').then((addresses) => {
-            this.addressData = addresses;
+        return new Cypress.Promise((resolve) => {
+            // Load user data fixture
+            cy.fixture('users.json').then((users) => {
+                this.userData = users;
+                // Load address data fixture
+                cy.fixture('address.json').then((addresses) => {
+                    this.addressData = addresses;
+                    resolve();
+                });
+            });
         });
     }
 

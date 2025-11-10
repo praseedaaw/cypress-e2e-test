@@ -12,7 +12,7 @@ class OrderSummaryPage extends BasePage {
     // ============ Element Selectors ============
 
     // Main Elements
-    /*
+    /**
     * Place Order button
     */
     placeOrderButton() {

@@ -60,7 +60,7 @@ class OrderHistoryPage extends BasePage {
     }
 
     /**
-     * Verify order and order ID are visible
+     * Verify order is visible
      */
     verifyOrderVisible(index) {
         this.order(index).should('be.visible');

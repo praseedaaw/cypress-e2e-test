@@ -10,10 +10,9 @@
 import { BaseTest } from '../baseTest_spec.cy';
 
 describe('Juice Shop - Ordering products', () => {
-  let baseTest;
+  const baseTest = new BaseTest();
 
   before(() => {
-    baseTest = new BaseTest();
     baseTest.loadTestData();
   });
 
