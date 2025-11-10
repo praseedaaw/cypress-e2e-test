@@ -9,28 +9,21 @@ class AccountTabPage extends BasePage {
         super();
     }
 
-    // ============ Configuration ============
-    CONFIG = {
-        TIMEOUTS: {
-            ELEMENT_VISIBLE: 2000
-        }
-    };
-
     // ============ Element Selectors ============
     profileButton() {
-        return cy.get('#mat-menu-panel-0 button[aria-label="Go to user profile"] span.mat-mdc-menu-item-text');
+        return this.getElement('#mat-menu-panel-0 button[aria-label="Go to user profile"] span.mat-mdc-menu-item-text');
     }
 
     orderAndPaymentButton() {
-        return cy.get('button[aria-label="Show Orders and Payment Menu"]');
+        return this.getElement('button[aria-label="Show Orders and Payment Menu"]');
     }
 
     orderHistoryButton() {
-        return cy.contains('span.mat-mdc-menu-item-text span', 'Order History');
+        return this.getElement('span.mat-mdc-menu-item-text span').contains('Order History');
     }
 
     privacyAndSecurityButton() {
-        return cy.get('#mat-menu-panel-0 button.mat-mdc-menu-item-highlighted span.mat-mdc-menu-item-text span');
+        return this.getElement('#mat-menu-panel-0 button.mat-mdc-menu-item-highlighted span.mat-mdc-menu-item-text span');
     }
 
     // ============ Actions ============

@@ -7,36 +7,28 @@ class SelectAddressPage extends BasePage {
     // ============ Configuration ============
     constructor() {
       super();
-      this.path = '/#/address/select';
-      this.CONFIG = {
-        PAGE_PATH: '/#/address/select',
-        TIMEOUTS: {
-          PAGE_LOAD: 10000,
-          ELEMENT_VISIBLE: 2000,
-          NAVIGATION: 30000
-        }
-      };
+      this.path = this.pageUrls.selectAddress;
     }
   
     // ============ Element Selectors ============
   
     // Email input field
     addNewAddressButton() {
-      return cy.get('#card button.mat-mdc-button-base.btn-new-address span.mdc-button__label span');
+      return this.getElement('#card button.mat-mdc-button-base.btn-new-address span.mdc-button__label span');
     }
 
     selectAddressButton(index) {
-        return cy.get(`#card mat-row:nth-child(${index+1}) mat-cell.mat-column-Address`);
+        return this.getElement(`#card mat-row:nth-child(${index+1}) mat-cell.mat-column-Address`);
     }
 
     // Get all address rows
     addressRows() {
-      return cy.get('#card mat-row');
+      return this.getElement('#card mat-row');
     }
 
     // Continue button
     continueButton() {
-      return cy.get('#card app-address mat-card button span.mdc-button__label').eq(1);
+      return this.getElement('#card app-address mat-card button span.mdc-button__label').eq(1);
     }
   
     // ============ Actions ============

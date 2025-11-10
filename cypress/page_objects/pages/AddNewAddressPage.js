@@ -7,54 +7,54 @@ import BasePage from '../BasePage';
 class AddNewAddressPage extends BasePage {
   constructor() {
     super();
-    this.path = '/#/address/create';
+    this.path = this.pageUrls.addNewAddress;
   }
 
   // ============ Form Elements ============
 
   // Country input field
   countryInput() {
-    return cy.get('#address-form mat-form-field:first-child input[type="text"]');
+    return this.getElement('#address-form mat-form-field:first-child input[type="text"]');
   }
 
   // Name input field
   nameInput() {
-    return cy.get('#address-form mat-form-field:nth-child(2) input[type="text"]');
+    return this.getElement('#address-form mat-form-field:nth-child(2) input[type="text"]');
   }
 
   // Mobile number input field
   mobileNumberInput() {
-    return cy.get('#address-form mat-form-field:nth-child(3) input[type="number"]');
+    return this.getElement('#address-form mat-form-field:nth-child(3) input[type="number"]');
   }
 
   // ZIP code input field
   zipCodeInput() {
-    return cy.get('#address-form mat-form-field:nth-child(4) input[type="text"]');
+    return this.getElement('#address-form mat-form-field:nth-child(4) input[type="text"]');
   }
 
   // Address input field
   addressInput() {
-    return cy.get('textarea#address');
+    return this.getElement('textarea#address');
   }
 
   // City input field
   cityInput() {
-    return cy.get('#address-form mat-form-field:nth-child(6) input[type="text"]');
+    return this.getElement('#address-form mat-form-field:nth-child(6) input[type="text"]');
   }
 
   // State input field
   stateInput() {
-    return cy.get('#address-form mat-form-field:nth-child(7) input[type="text"]');
+    return this.getElement('#address-form mat-form-field:nth-child(7) input[type="text"]');
   }
 
   // Back button
   backButton() {
-    return cy.contains('button', 'Back');
+    return this.getElement('button').contains('Back');
   }
 
   // Submit button
   submitButton() {
-    return cy.get('#submitButton');
+    return this.getElement('#submitButton');
   }
 
   // ============ Actions ============
@@ -100,15 +100,7 @@ class AddNewAddressPage extends BasePage {
    * @param {Address} address - Address object containing all details
    */
   addNewAddress(address) {
-    this.fillAddressForm({
-      country: address.country,
-      name: address.name,
-      mobileNumber: address.mobileNumber,
-      zipCode: address.zipCode,
-      address: address.address,
-      city: address.city,
-      state: address.state
-    });
+    this.fillAddressForm(address);
     this.submit();
   }
 

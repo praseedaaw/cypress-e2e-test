@@ -5,44 +5,35 @@ import BasePage from '../BasePage';
  * This is a shared component that can be used across all pages
  */
 class TopNavigationPage extends BasePage {
-  // ============ Configuration ============
   constructor() {
     super();
     this.path = '/';
-    this.CONFIG = {
-      PAGE_PATH: '/',
-      TIMEOUTS: {
-        PAGE_LOAD: 10000,
-        ELEMENT_VISIBLE: 2000,
-        NAVIGATION: 30000
-      }
-    };
   }
 
   // ============ Modal Elements ============
   cookieConsentMessage() {
-    return cy.get('#cookieconsent\\:desc');
+    return this.getElement('#cookieconsent\\:desc');
   }
 
   // ============ Main Elements ============
   menuButton() {
-    return cy.get('[aria-label="Open Sidenav"]');
+    return this.getElement('[aria-label="Open Sidenav"]');
   }
 
   owaspJuiceShopButton() {
-    return cy.contains('Back to homepage');
+    return this.getElement('a').contains('Back to homepage');
   }
 
   accountButton() {
-    return cy.get('[aria-label="Show/hide account menu"]');
+    return this.getElement('[aria-label="Show/hide account menu"]');
   }
 
   shoppingCartButton() {
-    return cy.get('[aria-label="Show the shopping cart"]');
+    return this.getElement('[aria-label="Show the shopping cart"]');
   }
 
   languageButton() {
-    return cy.get('[aria-label="Language selection menu"]');
+    return this.getElement('[aria-label="Language selection menu"]');
   }
 
   // ============ Actions ============
@@ -85,7 +76,7 @@ class TopNavigationPage extends BasePage {
 
   // ============ Assertions ============
   verifyPageLoaded() {
-    cy.url().should('include', this.CONFIG.PAGE_PATH);
+    this.verifyUrl(this.path);
     this.cookieConsentMessage().should('be.visible');
   }
 

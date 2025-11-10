@@ -1,25 +1,25 @@
 import BasePage from '../BasePage';
 
 /**
- * Page Object Model for OWASP Juice Shop Select Address Page
+ * Page Object Model for OWASP Juice Shop Choose Delivery Speed Page
  */
 class ChooseDeliverySpeedPage extends BasePage {
     // ============ Configuration ============
     constructor() {
       super();
-      this.path = '/#/delivery-method';
+      this.path = this.pageUrls.chooseDelivery;
     }
   
     // ============ Element Selectors ============
   
    // Select delivery speed button
    selectDeliverySpeedButton(index) {
-      return cy.get('.mat-column-Selection').eq(index);
+      return this.getElement('.mat-column-Selection').eq(index);
     }
 
     // Continue button
     continueButton() {
-      return cy.get('.mdc-button__label').contains('span', 'Continue');
+      return this.getElement('.mdc-button__label').contains('span', 'Continue');
     }
   
     // ============ Actions ============
