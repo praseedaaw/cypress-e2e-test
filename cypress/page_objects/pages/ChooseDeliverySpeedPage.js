@@ -25,7 +25,7 @@ class ChooseDeliverySpeedPage extends BasePage {
     // ============ Actions ============
   
     /**
-     * Navigate to login page
+     * Navigate to Choose Delivery Speed page
      */
     visit() {
       super.visit(this.path);

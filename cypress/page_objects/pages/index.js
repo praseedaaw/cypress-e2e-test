@@ -1,3 +1,6 @@
+/** 
+ * Index file to export all page objects
+ */
 export { default as LoginPage } from './LogInPage';
 export { default as HomePage } from './HomePage';
 export { default as CheckoutPage } from './CheckoutPage';

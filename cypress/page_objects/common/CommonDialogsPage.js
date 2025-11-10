@@ -23,7 +23,7 @@ class CommonDialogsPage extends BasePage {
 
     // ============ Actions ============
     closeCookieConsent() {
-        cy.get('body').then($body => {
+        this.getElement('body').then($body => {
             if ($body.find('a.cc-btn').length > 0) {
                 this.cookieConsentButton()
                     .should('be.visible')
@@ -33,7 +33,7 @@ class CommonDialogsPage extends BasePage {
     }
 
     closeWelcomeDialog() {
-        cy.get('body').then($body => {
+        this.getElement('body').then($body => {
             if ($body.find('#mat-mdc-dialog-0').length > 0) {
                 this.welcomeDialogCloseButton()
                     .should('be.visible')

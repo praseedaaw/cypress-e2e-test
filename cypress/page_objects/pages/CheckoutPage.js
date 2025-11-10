@@ -34,7 +34,7 @@ class CheckoutPage extends BasePage {
   removeItemButton(index) {
     return this.getElement('mat-row').eq(index).then($row => {
       if ($row.length) {
-        return cy.wrap($row).find('mat-cell.mat-column-remove button.mat-unthemed span.mat-mdc-button-touch-target');
+        return this.getElement('mat-cell.mat-column-remove button.mat-unthemed span.mat-mdc-button-touch-target', { withinSubject: $row });
       }
       return null;
     });
@@ -102,7 +102,7 @@ class CheckoutPage extends BasePage {
       const hasRows = Cypress.$('mat-row', $body).length > 0;
       if (hasRows) {
         this.getElement('mat-row').eq(index).within(() => {
-          cy.get('mat-cell.mat-column-remove button.mat-unthemed span.mat-mdc-button-touch-target')
+          this.getElement('mat-cell.mat-column-remove button.mat-unthemed span.mat-mdc-button-touch-target')
             .click({ force: true });
         });
       }
@@ -127,7 +127,7 @@ class CheckoutPage extends BasePage {
     this.hasItems().then(hasItems => {
       if (hasItems) {
         // Get all rows and remove them one by one
-        cy.get('mat-row').each(() => {
+        this.getElement('mat-row').each(() => {
           // Always remove the first item as they shift up
           this.removeFirstItem();
           // Add small delay between removals
@@ -166,6 +166,18 @@ class CheckoutPage extends BasePage {
    */
   verifyCheckoutEnabled() {
     this.checkoutButton().should('be.enabled');
+  }
+
+  verifyBasketItemCount(count) {
+    this.verifyListLength('mat-row', count);
+  }
+
+  verifyBasketItemCountLessThan(count) {
+    this.verifyListLengthLessThan('mat-row', count);
+  }
+
+  verifyBasketItemCountGreaterThan(count) {
+    this.verifyListLengthGreaterThan('mat-row', count);
   }
 }
 

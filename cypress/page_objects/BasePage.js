@@ -52,6 +52,33 @@ class BasePage {
     verifyUrl(path) {
         cy.url({ timeout: this.timeout.pageLoad }).should('include', path);
     }
+
+    /**
+     * Verify list has exact length
+     * @param {string} selector - Element selector
+     * @param {number} expectedLength - Expected length of the list
+     */
+    verifyListLength(selector, expectedLength) {
+        this.getElement(selector).should('have.length', expectedLength);
+    }
+
+    /**
+     * Verify list has length less than expected
+     * @param {string} selector - Element selector
+     * @param {number} expectedLength - Expected maximum length
+     */
+    verifyListLengthLessThan(selector, expectedLength) {
+        this.getElement(selector).should('have.length.lessThan', expectedLength);
+    }
+
+    /**
+     * Verify list has length greater than expected
+     * @param {string} selector - Element selector
+     * @param {number} expectedLength - Expected minimum length
+     */
+    verifyListLengthGreaterThan(selector, expectedLength) {
+        this.getElement(selector).should('have.length.greaterThan', expectedLength);
+    }
 }
 
 export default BasePage;

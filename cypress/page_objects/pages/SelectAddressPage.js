@@ -12,11 +12,12 @@ class SelectAddressPage extends BasePage {
   
     // ============ Element Selectors ============
   
-    // Email input field
+    // Add new address button
     addNewAddressButton() {
       return this.getElement('#card button.mat-mdc-button-base.btn-new-address span.mdc-button__label span');
     }
 
+    // Select address button by index
     selectAddressButton(index) {
         return this.getElement(`#card mat-row:nth-child(${index+1}) mat-cell.mat-column-Address`);
     }
@@ -34,7 +35,7 @@ class SelectAddressPage extends BasePage {
     // ============ Actions ============
   
     /**
-     * Navigate to login page
+     * Navigate to Select Address page
      */
     visit() {
       super.visit(this.path);
