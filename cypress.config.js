@@ -17,9 +17,26 @@ module.exports = defineConfig({
     supportFile: "cypress/support/e2e.js",
     experimentalInteractiveRunEvents: true,
     baseUrl: 'http://localhost:3000',
+    // Timeout configurations
+    defaultCommandTimeout: 4000,      // Time to wait for cy.get() and assertions
+    pageLoadTimeout: 60000,          // Time to wait for page loads
+    // Screenshots and videos
     screenshotOnRunFailure: true,
     screenshotsFolder: 'cypress/reports/html/screenshots',
     video: true,
-    videosFolder: 'cypress/reports/html/videos'
+    videosFolder: 'cypress/reports/html/videos',
+    // Page paths configuration
+    pageUrls: {
+      base: '/#/',
+      login: '/#/login',
+      checkout: '/#/basket',
+      selectAddress: '/#/address/select',
+      addNewAddress: '/#/address/create',
+      chooseDelivery: '/#/delivery-method',
+      paymentOptions: '/#/payment/shop',
+      orderSummary: '/#/order-summary',
+      orderCompletion: '/#/order-completion/',
+      orderHistory: '/#/order-history'
+    }
   },
 });

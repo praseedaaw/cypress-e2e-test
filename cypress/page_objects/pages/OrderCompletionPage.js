@@ -1,37 +1,28 @@
+import BasePage from '../BasePage';
+
 /**
- * Page Object Model for OWASP Juice Shop Order Summary Page
+ * Page Object Model for OWASP Juice Shop Order Completion Page
  */
-class OrderCompletionPage {
-    // ============ Configuration ============
-    CONFIG = {
-        PAGE_PATH: '/#/order-completion/',
-        TIMEOUTS: {
-            PAGE_LOAD: 10000,
-            ELEMENT_VISIBLE: 2000,
-            NAVIGATION: 30000
-        }
-    };
+class OrderCompletionPage extends BasePage {
+    constructor() {
+        super();
+        this.path = this.pageUrls.orderCompletion;
+    }
 
     // ============ Element Selectors ============
-
-    // Main Elements
     title() {
-        return cy.get('h1.confirmation').contains('Thank you for your purchase!');
+        return this.getElement('h1.confirmation').contains('Thank you for your purchase!');
     }
 
     // ============ Actions ============
-
-    // ============ Assertions ============
-
-    verifyPageLoaded() {
-        cy.url().should('include', this.CONFIG.PAGE_PATH);
-        this.title().should('exist').and('not.be.disabled');
+    visit() {
+        super.visit(this.path);
     }
 
-    // ============ Navigation ============
-
-    visit() {
-      cy.visit(this.CONFIG.PAGE_PATH);
+    // ============ Assertions ============
+    verifyPageLoaded() {
+        this.verifyUrl(this.path);
+        this.title().should('exist').and('not.be.disabled');
     }
 }
 

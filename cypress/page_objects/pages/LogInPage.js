@@ -6,64 +6,44 @@ import BasePage from '../BasePage';
 class LoginPage extends BasePage {
   constructor() {
     super();
-    this.path = '/#/login';
+    this.path = this.pageUrls.login;
   }
 
   // ============ Element Selectors ============
 
-  // Cookie consent message
-  cookieConsentMessage() {
-    return cy.get('#cookieconsent\\:desc');
-  }
-
   // Email input field
   emailInput() {
-    return cy.get('[name="email"]');
+    return this.getElement('[name="email"]');
   }
 
   // Password input field
   passwordInput() {
-    return cy.get('[name="password"]');
+    return this.getElement('[name="password"]');
   }
 
   // Show password button
   showPasswordButton() {
-    return cy.get('[data-mat-icon-name="visibility"]');
+    return this.getElement('[data-mat-icon-name="visibility"]');
   }
 
   // Forgot password link
   forgotPasswordLink() {
-    return cy.contains('Forgot your password?');
+    return this.getElement('a').contains('Forgot your password?');
   }
 
   // Login with Google button
   googleLoginButton() {
-    return cy.contains('Login with Google');
+    return this.getElement('button').contains('Login with Google');
   }
 
   // Not a customer link
   notCustomerLink() {
-    return cy.contains('Not yet a customer?');
-  }
-
-  // Menu button
-  menuButton() {
-    return cy.get('[aria-label="Open Sidenav"]');
-  }
-
-  // Account button
-  accountButton() {
-    return cy.get('[aria-label="Show/hide account menu"]');
-  }
-
-  // Language selection button
-  languageButton() {
-    return cy.get('[aria-label="Language selection menu"]');
+    return this.getElement('a').contains('Not yet a customer?');
   }
 
   // Login button
   loginButton() {
-    return cy.get('button[type="submit"]');
+    return this.getElement('button[type="submit"]');
   }
 
   // ============ Actions ============
@@ -84,27 +64,6 @@ class LoginPage extends BasePage {
     this.emailInput().type(email);
     this.passwordInput().type(password);
     this.loginButton().click();
-  }
-
-  /**
-   * Click menu button
-   */
-  clickMenu() {
-    this.menuButton().click();
-  }
-
-  /**
-   * Click account button
-   */
-  clickAccount() {
-    this.accountButton().click();
-  }
-
-  /**
-   * Click language button
-   */
-  clickLanguage() {
-    this.languageButton().click();
   }
 
   /**

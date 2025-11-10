@@ -7,40 +7,32 @@ class HomePage extends BasePage {
   // ============ Configuration ============
   constructor() {
     super();
-    this.path = '/#/';
-    this.CONFIG = {
-      PAGE_PATH: '/#/',
-      TIMEOUTS: {
-        PAGE_LOAD: 10000,
-        ELEMENT_VISIBLE: 2000,
-        NAVIGATION: 30000
-      }
-    };
+    this.path = this.pageUrls.base;
   }
 
   // ============ Element Selectors ============
 
   // Product elements
   productElement(index) {
-    return cy.get(`div.mat-grid-tile:nth-child(${index + 1}) mat-card.mat-mdc-card.mdc-card div.mdc-card div.product img.mat-mdc-card-image.mdc-card__media`);
+    return this.getElement(`div.mat-grid-tile:nth-child(${index + 1}) mat-card.mat-mdc-card.mdc-card div.mdc-card div.product img.mat-mdc-card-image.mdc-card__media`);
   }
 
   // Add to basket buttons
   addToBasketButton(index) {
-    return cy.get(`mat-grid-tile:nth-child(${index + 1}) button[aria-label="Add to Basket"]`);
+    return this.getElement(`mat-grid-tile:nth-child(${index + 1}) button[aria-label="Add to Basket"]`);
   }
 
   // Page navigation
   previousPageButton() {
-    return cy.contains('button', 'Previous page');
+    return this.getElement('button').contains('Previous page');
   }
 
   nextPageButton() {
-    return cy.contains('button', 'Next page');
+    return this.getElement('button').contains('Next page');
   }
 
   itemsPerPageDropdown() {
-    return cy.get('select[aria-label="Items per page"]');
+    return this.getElement('select[aria-label="Items per page"]');
   }
 
   // ============ Actions ============

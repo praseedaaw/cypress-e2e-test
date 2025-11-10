@@ -3,13 +3,11 @@
  */
 class BasePage {
     constructor() {
-        this.baseUrl = 'http://localhost:3000';
-        this.CONFIG = {
-            TIMEOUTS: {
-                PAGE_LOAD: 10000,
-                ELEMENT_VISIBLE: 2000,
-                NAVIGATION: 30000
-            }
+        this.baseUrl = Cypress.config('baseUrl');
+        this.pageUrls = Cypress.config('pageUrls');
+        this.timeout = {
+            defaultCommand: Cypress.config('defaultCommandTimeout'),
+            pageLoad: Cypress.config('pageLoadTimeout')
         };
     }
 
@@ -18,7 +16,24 @@ class BasePage {
      * @param {string} path - Path to append to base URL
      */
     visit(path = '/') {
-        cy.visit(`${this.baseUrl}${path}`);
+        cy.visit(path, { timeout: this.timeout.pageLoad });
+    }
+
+    /**
+     * Get element with default command timeout
+     * @param {string} selector - Element selector
+     */
+    getElement(selector) {
+        return cy.get(selector, { timeout: this.timeout.defaultCommand });
+    }
+
+    /**
+     * Get element with custom timeout
+     * @param {string} selector - Element selector
+     * @param {number} timeout - Custom timeout in ms
+     */
+    getElementWithTimeout(selector, timeout) {
+        return cy.get(selector, { timeout });
     }
 
     /**
@@ -35,7 +50,7 @@ class BasePage {
      * @param {string} path - Path to verify
      */
     verifyUrl(path) {
-        cy.url().should('include', path);
+        cy.url({ timeout: this.timeout.pageLoad }).should('include', path);
     }
 }
 

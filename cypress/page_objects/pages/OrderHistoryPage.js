@@ -6,21 +6,21 @@ import BasePage from '../BasePage';
 class OrderHistoryPage extends BasePage {
     constructor() {
         super();
-        this.path = '/#/order-history';
+        this.path = this.pageUrls.orderHistory;
     }
 
     // ============ Element Selectors ============
 
     title() {
-        return cy.get('mat-card-title.mat-mdc-card-title').contains('Order History');
+        return this.getElement('mat-card-title.mat-mdc-card-title').contains('Order History');
     }
 
     order(index) {
-        return cy.get(`div:nth-child(${index}) > div.custom-slate > div.heading`);
+        return this.getElement(`div:nth-child(${index}) > div.custom-slate > div.heading`);
     }
 
     orderID(index) {
-        return cy.get(`div:nth-child(${index}) > div.custom-slate > div.heading > div.heading-row > div.col-40 > div:nth-child(2)`);
+        return this.getElement(`div:nth-child(${index}) > div.custom-slate > div.heading > div.heading-row > div.col-40 > div:nth-child(2)`);
     }
 
     // ============ Actions ============

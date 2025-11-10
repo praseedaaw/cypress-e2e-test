@@ -6,7 +6,7 @@ import BasePage from '../BasePage';
 class CheckoutPage extends BasePage {
   constructor() {
     super();
-    this.path = '/#/basket';
+    this.path = this.pageUrls.checkout;
   }
 
   // ============ Element Selectors ============
@@ -16,7 +16,7 @@ class CheckoutPage extends BasePage {
    * @param {number} index - Index of the item (0-based)
    */
   increaseQuantityButton(index) {
-    return cy.get(`mat-row:nth-child(${index + 1}) button:nth-child(3) span.mat-mdc-button-touch-target`);
+    return this.getElement(`mat-row:nth-child(${index + 1}) button:nth-child(3) span.mat-mdc-button-touch-target`);
   }
 
   /**
@@ -24,7 +24,7 @@ class CheckoutPage extends BasePage {
    * @param {number} index - Index of the item (0-based)
    */
   decreaseQuantityButton(index) {
-    return cy.get(`mat-row:nth-child(${index + 1}) mat-cell.mat-column-quantity button:nth-child(1) span.mat-mdc-button-touch-target`);
+    return this.getElement(`mat-row:nth-child(${index + 1}) mat-cell.mat-column-quantity button:nth-child(1) span.mat-mdc-button-touch-target`);
   }
 
   /**
@@ -32,8 +32,7 @@ class CheckoutPage extends BasePage {
    * @param {number} index - Index of the item (0-based)
    */
   removeItemButton(index) {
-    // First check if the row exists to prevent timeout
-    return cy.get('mat-row').eq(index).then($row => {
+    return this.getElement('mat-row').eq(index).then($row => {
       if ($row.length) {
         return cy.wrap($row).find('mat-cell.mat-column-remove button.mat-unthemed span.mat-mdc-button-touch-target');
       }
@@ -45,7 +44,7 @@ class CheckoutPage extends BasePage {
    * Get checkout button
    */
   checkoutButton() {
-    return cy.get('#checkoutButton');
+    return this.getElement('#checkoutButton');
   }
 
   // ============ Actions ============
@@ -62,7 +61,7 @@ class CheckoutPage extends BasePage {
    * @returns {Cypress.Chainable<boolean>}
    */
   hasItems() {
-    return cy.get('body').then($body => {
+    return this.getElement('body').then($body => {
       return Cypress.$('mat-row', $body).length > 0;
     });
   }
@@ -99,10 +98,10 @@ class CheckoutPage extends BasePage {
    */
   removeItem(index) {
     // Use existence check with timeout
-    cy.get('body').then($body => {
+    this.getElement('body').then($body => {
       const hasRows = Cypress.$('mat-row', $body).length > 0;
       if (hasRows) {
-        cy.get('mat-row').eq(index).within(() => {
+        this.getElement('mat-row').eq(index).within(() => {
           cy.get('mat-cell.mat-column-remove button.mat-unthemed span.mat-mdc-button-touch-target')
             .click({ force: true });
         });
@@ -159,7 +158,7 @@ class CheckoutPage extends BasePage {
    * @param {number} index - Index of the item (0-based)
    */
   verifyItemExists(index) {
-    cy.get(`mat-row:nth-child(${index + 1})`).should('exist');
+    this.getElement(`mat-row:nth-child(${index + 1})`).should('exist');
   }
 
   /**

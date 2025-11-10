@@ -6,24 +6,14 @@ import BasePage from '../BasePage';
 class OrderSummaryPage extends BasePage {
     constructor() {
         super();
-        this.path = '/#/order-summary';
+        this.path = this.pageUrls.orderSummary;
     }
-
-    // ============ Configuration ============
-    CONFIG = {
-        PAGE_PATH: '/#/order-summary',
-        TIMEOUTS: {
-            PAGE_LOAD: 10000,
-            ELEMENT_VISIBLE: 2000,
-            NAVIGATION: 30000
-        }
-    };
 
     // ============ Element Selectors ============
 
     // Main Elements
     placeOrderButton() {
-        return cy.get('button').contains('Place your order and pay');
+        return this.getElement('button').contains('Place your order and pay');
     }
 
     // ============ Actions ============

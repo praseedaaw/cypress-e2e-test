@@ -9,7 +9,7 @@
 
 /// <reference types="cypress" />
 // Common components
-import { TopNavigationPage, AccountTabPage } from '../../../page_objects/common';
+import { TopNavigationPage, AccountTabPage, CommonDialogsPage } from '../../../page_objects/common';
 import BasePage from '../../../page_objects/BasePage';
 
 // Pages
@@ -29,6 +29,7 @@ describe('Juice Shop - Ordering products', () => {
   let userData;
   let addressData;
   const basePage = new BasePage();
+  const commonDialogs = new CommonDialogsPage();
 
   before(() => {
     // Load the user data fixture
@@ -47,14 +48,7 @@ describe('Juice Shop - Ordering products', () => {
     });
     
     cy.step('Setup: Handle initial dialogs', () => {
-      cy.get('body').then($body => {
-        if ($body.find('a.cc-btn').length > 0) {
-          cy.get('a.cc-btn').should('be.visible').click();
-        }
-        if ($body.find('#mat-mdc-dialog-0').length > 0) {
-          cy.get('#mat-mdc-dialog-0 span.hide-lt-sm').should('be.visible').click();
-        }
-      });
+      commonDialogs.handleInitialDialogs();
     });
   });
 
@@ -124,7 +118,7 @@ describe('Juice Shop - Ordering products', () => {
       chooseDeliverySpeedPage.selectFirstDeliverySpeed();
       chooseDeliverySpeedPage.continueButton().click();
       paymentOptionsPage.verifyPageLoaded();
-      paymentOptionsPage.selectFirstDPaymentMethod();
+      paymentOptionsPage.selectFirstPaymentMethod();
       paymentOptionsPage.clickContinue();
       orderSummaryPage.verifyPageLoaded();
       orderSummaryPage.clickPlaceOrder();
