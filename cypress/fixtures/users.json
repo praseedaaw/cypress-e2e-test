@@ -3,7 +3,7 @@
     "email": "admin@juice-sh.op",
     "password": "admin123"
   },
-  "standardUser": {
+  "invalidUser": {
     "email": "test@test.com",
     "password": "test123"
   }
