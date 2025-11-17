@@ -115,7 +115,12 @@ class CheckoutPage extends BasePage {
   removeFirstItem() {
     this.hasItems().then(hasItems => {
       if (hasItems) {
-        this.removeItem(0);
+        // Get current item count before removal
+        this.getElement('mat-row').its('length').then(initialCount => {
+          this.removeItem(0);
+          // Assert that item count has decreased after removal
+          this.getElement('mat-row').should('have.length', initialCount - 1);
+        });
       }
     });
   }
@@ -130,8 +135,6 @@ class CheckoutPage extends BasePage {
         this.getElement('mat-row').each(() => {
           // Always remove the first item as they shift up
           this.removeFirstItem();
-          // Add small delay between removals
-          cy.wait(500);
         });
       }
     });
