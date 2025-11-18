@@ -98,6 +98,10 @@ export class BaseTest {
         return this.getPage(Cypress.Constants.PAGE_TYPES.ORDER_HISTORY);
     }
 
+    get orderCompletionPage() {
+        return this.getPage(Cypress.Constants.PAGE_TYPES.ORDER_COMPLETION);
+    }
+
     /**
      * Get list of initialized page objects
      * @returns {string[]} Array of initialized page types

@@ -7,6 +7,7 @@ import Constants from './Constants';
 // Common components
 import { TopNavigationPage, AccountTabPage, CommonDialogsPage } from '../page_objects/common';
 import BasePage from '../page_objects/BasePage';
+// Import page objects as named exports
 import {
   LoginPage,
   HomePage,
@@ -16,7 +17,8 @@ import {
   ChooseDeliverySpeedPage,
   PaymentOptionsPage,
   OrderSummaryPage,
-  OrderHistoryPage
+  OrderHistoryPage,
+  OrderCompletionPage
 } from '../page_objects/pages';
 
 class PageObjectFactory {
@@ -56,6 +58,8 @@ class PageObjectFactory {
                 return new OrderSummaryPage();
             case Constants.PAGE_TYPES.ORDER_HISTORY:
                 return new OrderHistoryPage();
+            case Constants.PAGE_TYPES.ORDER_COMPLETION:
+                return new OrderCompletionPage();
             
             default:
                 throw new Error(`Unknown page type: ${pageType}. Available types: ${Object.values(Constants.PAGE_TYPES).join(', ')}`);

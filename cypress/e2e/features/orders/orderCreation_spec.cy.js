@@ -24,7 +24,8 @@ describe('Juice Shop - Ordering products', () => {
       Cypress.Constants.PAGE_TYPES.PAYMENT_OPTIONS,
       Cypress.Constants.PAGE_TYPES.ORDER_SUMMARY,
       Cypress.Constants.PAGE_TYPES.ACCOUNT_TAB,
-      Cypress.Constants.PAGE_TYPES.ORDER_HISTORY
+      Cypress.Constants.PAGE_TYPES.ORDER_HISTORY,
+      Cypress.Constants.PAGE_TYPES.ORDER_COMPLETION
     ];
     
     baseTest = new BaseTest(requiredPages);
@@ -91,6 +92,7 @@ describe('Juice Shop - Ordering products', () => {
 
     // Step 6: Order Verification
     cy.step('Verification: Check order in history', () => {
+      baseTest.orderCompletionPage.verifyPageLoaded();
       baseTest.topNav.clickAccount();
       baseTest.accountTabPage.clickOrderHistory();
       baseTest.orderHistoryPage.verifyPageLoaded();

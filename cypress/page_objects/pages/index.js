@@ -10,3 +10,4 @@ export { default as ChooseDeliverySpeedPage } from './ChooseDeliverySpeedPage';
 export { default as PaymentOptionsPage } from './PaymentOptionsPage';
 export { default as OrderSummaryPage } from './OrderSummaryPage';
 export { default as OrderHistoryPage } from './OrderHistoryPage';
+export { default as OrderCompletionPage } from './OrderCompletionPage';
