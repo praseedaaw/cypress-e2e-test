@@ -1,19 +1,37 @@
 /**
  * @fileoverview Order Creation End-to-End Test Specification
- * This spec contains test scenarios for the complete order creation flow in OWASP Juice Shop,
- * including login, cart management, checkout process, and order verification.
- * @author Praseeda Achuthawarrier
- * @lastModified 2025-11-06
+ * Uses dependency injection pattern for efficient page object management
  */
 
 /// <reference types="cypress" />
 import { BaseTest } from '../baseTest_spec.cy';
 
 describe('Juice Shop - Ordering products', () => {
-  const baseTest = new BaseTest();
+  let baseTest;
 
   before(() => {
-    baseTest.loadTestData();
+    // Initialize BaseTest with required page objects using Constants
+    const requiredPages = [
+      Cypress.Constants.PAGE_TYPES.BASE_PAGE,
+      Cypress.Constants.PAGE_TYPES.COMMON_DIALOGS,
+      Cypress.Constants.PAGE_TYPES.LOGIN,
+      Cypress.Constants.PAGE_TYPES.HOME,
+      Cypress.Constants.PAGE_TYPES.TOP_NAV,
+      Cypress.Constants.PAGE_TYPES.CHECKOUT,
+      Cypress.Constants.PAGE_TYPES.SELECT_ADDRESS,
+      Cypress.Constants.PAGE_TYPES.ADD_NEW_ADDRESS,
+      Cypress.Constants.PAGE_TYPES.CHOOSE_DELIVERY_SPEED,
+      Cypress.Constants.PAGE_TYPES.PAYMENT_OPTIONS,
+      Cypress.Constants.PAGE_TYPES.ORDER_SUMMARY,
+      Cypress.Constants.PAGE_TYPES.ACCOUNT_TAB,
+      Cypress.Constants.PAGE_TYPES.ORDER_HISTORY,
+      Cypress.Constants.PAGE_TYPES.ORDER_COMPLETION
+    ];
+    
+    baseTest = new BaseTest(requiredPages);
+    
+    // Load test data
+    return baseTest.loadTestData();
   });
 
   beforeEach(() => {
@@ -29,10 +47,10 @@ describe('Juice Shop - Ordering products', () => {
 
     cy.step('Cart: Add new items to basket', () => {
       baseTest.homePage.visit();
-      baseTest.homePage.addToBasket(0);
-      baseTest.homePage.addToBasket(1);
-      baseTest.homePage.addToBasket(2);
-      baseTest.homePage.addToBasket(3);
+      baseTest.homePage.addItemToBasketByIndex(0);
+      baseTest.homePage.addItemToBasketByIndex(1);
+      baseTest.homePage.addItemToBasketByIndex(2);
+      baseTest.homePage.addItemToBasketByIndex(3);
     });
 
     // Step 3: Cart Modification
@@ -74,10 +92,17 @@ describe('Juice Shop - Ordering products', () => {
 
     // Step 6: Order Verification
     cy.step('Verification: Check order in history', () => {
+      baseTest.orderCompletionPage.verifyPageLoaded();
       baseTest.topNav.clickAccount();
       baseTest.accountTabPage.clickOrderHistory();
       baseTest.orderHistoryPage.verifyPageLoaded();
       baseTest.orderHistoryPage.verifyOrderVisible(1);
     });
+  });
+
+  after(() => {
+    // Log initialized page objects for debugging
+    cy.log('Test completed with page objects:', baseTest.getInitializedPages());
+    cy.log('Total pages initialized:', baseTest.getInitializedPages().length);
   });
 });

@@ -8,6 +8,7 @@ End-to-end testing framework for OWASP Juice Shop using Cypress with Page Object
 cypress/
 ├── e2e/
 │   └── features/            # Feature-based test files
+│       ├── baseTest_spec.cy.js  # Base test class with dependency injection
 │       └── orders/         # Order-related test specs
 ├── fixtures/               # Test data
 │   ├── users.json         # User credentials
@@ -23,6 +24,8 @@ cypress/
 │       └── screenshots/ # Test failure screenshots
 └── support/             # Support files and configurations
     ├── commands.js      # Custom Cypress commands
+    ├── Constants.js     # Application constants and page types
+    ├── PageObjectFactory.js  # Factory for creating page objects
     └── e2e.js          # E2E test configuration
 ```
 
@@ -38,9 +41,10 @@ cypress/
 1. Install Node.js and npm
 2. Clone the repository
 3. Run `npm install`
-4. Study the order creation spec as a reference implementation
-5. Follow the Page Object Model pattern for new tests
-6. Use provided custom commands and step definitions
+4. Study the `baseTest_spec.cy.js` for architecture understanding
+5. Review `orderCreation_spec.cy.js` as a reference implementation
+6. Follow the dependency injection pattern for new tests
+7. Use provided custom commands and step definitions
 
 ## ⚙️ Project Setup
 Once you have the Juice Shop application running:
@@ -189,11 +193,13 @@ xdg-open cypress/reports/html/index.html
 - Custom Step Logging (using cy.step())
 
 ## 🪪 Contributing Guidelines
-1. Follow the established Page Object Model pattern
+1. Follow the established Page Object Model pattern & the established dependency injection pattern with BaseTest
 2. Extend BasePage.js for new page objects
-3. Use cy.step() for test step documentation
-4. Maintain test data in fixtures
-5. Run ESLint before committing changes
+3. Declare required page objects explicitly in test constructors
+4. Use cy.step() for test step documentation
+5. Maintain test data in fixtures
+6. Run ESLint before committing changes
+7. Remove unused code and methods to maintain clean architecture
 
 ## 🔄 Git Workflow
 1. The repository enforces code quality through pre-push hooks

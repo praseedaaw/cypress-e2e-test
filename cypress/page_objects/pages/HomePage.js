@@ -54,9 +54,9 @@ class HomePage extends BasePage {
 
   /**
    * Add product to basket by index
-   * @param {number} index - Product index
+   * @param {number} index - Product index (0-based)
    */
-  addToBasket(index) {
+  addItemToBasketByIndex(index) {
     this.addToBasketButton(index).click();
   }
 
